@@ -17,10 +17,15 @@ let VERSION = {
 	name: "Null update",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
+let changelog = `<h1>Godlyverse Tree changelog::</h1><br>
 	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	0.0 Null update<br>
+	- First update of the fork based on mobile incremental game Godlyverse!<br>
+	- Added new layers: <br>
+	- NPS (Numbers per sec), every point increase Number per sec (main currency) by one.<br>
+	- Prestige which now doing nothing.<br>
+	- New upgrade for NPS which will make sense little later.<br>
+	- 0.1 has a big plans.`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
