@@ -48,7 +48,7 @@ addLayer("n", {
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player.n.points=player.n.points.add(3)
-                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.05))}
                    
                   },
                 effect (x){
@@ -78,7 +78,7 @@ addLayer("n", {
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player.n.points=player.n.points.add(5)
-                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.05))}
                   },
                 effect (x){
                     return player.n.points
@@ -106,7 +106,7 @@ addLayer("n", {
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player.n.points=player.n.points.add(10)
-                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.05))}
                   },
                 effect (x){
                     return player.n.points
@@ -131,16 +131,45 @@ addLayer("p", {
     branches: ["n"],
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1.05)
+        mult = new Decimal(1)
+        if (buyableEffect('p', 11)) {return (tmp['p'].buyables[11].effect)}
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        let exp = new Decimal(2)
+        let exp = new Decimal(2.1)
         return exp;
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true}
+    layerShown(){return true},
+    buyables: {
+        11: {
+            title: "Prestige Factor X beta",
+            currencyDisplayName: "Prestige Points",
+            currencyInternalName: "Prestige Points",
+            cost(x) { 
+                let pfx = (new Decimal(2).mul(x.add(1)).pow(0.7))
+                if (x.lt(1)) {pfx=2}
+                return pfx
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Prestige Points\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Increase PPs gain by 25%"
+            },
+            canAfford() {
+                return player.p.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    cost = tmp[this.layer].buyables[this.id].cost
+                    player.p.points = player.p.points.sub(cost)    
+                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                  },
+                effect (x){
+                    return mult = mult.add(mult.mul(x).mul(0.25))
+                },
+        },
+    }
 })
