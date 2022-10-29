@@ -17,7 +17,7 @@ let VERSION = {
 	name: "Null update",
 }
 
-let changelog = `<h1>Godlyverse Tree changelog::</h1><br>
+let changelog = `<h1>Godlyverse Tree changelog:</h1><br>
 	<h3>v0.0</h3><br>
 	0.0 Null update<br>
 	- First update of the fork based on mobile incremental game Godlyverse!<br>
@@ -39,16 +39,16 @@ function getStartPoints(){
 
 // Determines if it should show points/sec
 function canGenPoints(){
-	return true
+	return true;
 }
 
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
-		return new Decimal(0)
+		return new Decimal(0);
 
-	let gain = new Decimal(1)
-	gain = player.n.points.plus(1);
+	let gain = new Decimal(0)
+	gain = player.n.points.plus(0);
 	return gain
 }
 

@@ -7,12 +7,12 @@ addLayer("n", {
 		points: new Decimal(0),
     }},
     color: "#1AA7EC",
-    requires: new Decimal(10), // Can be a function that takes requirement increases into account
+    requires: new Decimal(1e9999999999), // Can be a function that takes requirement increases into account
     resource: "NPS", // Name of prestige currency
     baseResource: "Number", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
+    exponent: 0, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -25,19 +25,33 @@ addLayer("n", {
         {key: "n", description: "N: Reset for number per second", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    upgrades: {
-        rows: 1,
-        cols: 1,
+    buyables: {
         11: {
-            title: "Tiny number",
-            description: "Get +1 NPS",
-            cost: new Decimal(1),
-            effect() {
-                let eff = player.p.points.plus(1);
-                return eff
-            }
+            title: "Insanely small number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            cost(x) { 
+                return new Decimal(10).mul(x+1)},
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + " + format(data.effect ) + " NPC"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    cost = tmp[this.layer].buyables[this.id].cost
+                    player.points = player.points.sub(10)    
+                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                    player.n.points=player.n.points.add(3)
+                  },
+                effect (x){
+                    return player.n.points
+                },
         },
-}}),
+    },
+},),
 addLayer("p", {
     name: "Prestige", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "P", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -52,6 +66,7 @@ addLayer("p", {
     baseResource: "NPS", // Name of resource prestige is based on
     baseAmount() {return player.n.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    branches: ["n"],
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
