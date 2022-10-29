@@ -31,7 +31,7 @@ addLayer("n", {
             currencyDisplayName: "Number",
             currencyInternalName: "Number",
             cost(x) { 
-                let rex = (new Decimal(10).mul(x).pow(1.2))
+                let rex = (new Decimal(10).mul(x).pow(1.1))
                 if (x.lt(1)) {rex=10}
                 return rex
                     },
@@ -39,7 +39,7 @@ addLayer("n", {
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + " + format(data.effect ) + " NPC"
+                Adds + 3 NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
@@ -48,6 +48,65 @@ addLayer("n", {
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player.n.points=player.n.points.add(3)
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
+                   
+                  },
+                effect (x){
+
+                    return player.n.points
+                },
+        },
+        12: {
+            title: "Small number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            cost(x) { 
+                let rexe = (new Decimal(25).mul(x).pow(1.13))
+                if (x.lt(1)) {rexe=25}
+                return rexe
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + 5 NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    cost = tmp[this.layer].buyables[this.id].cost
+                    player.points = player.points.sub(cost)    
+                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                    player.n.points=player.n.points.add(5)
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        13: {
+            title: "Small golden number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            cost(x) { 
+                let rexq = (new Decimal(60).mul(x).pow(1.14))
+                if (x.lt(1)) {rexq=60}
+                return rexq
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Adds + 10 NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    cost = tmp[this.layer].buyables[this.id].cost
+                    player.points = player.points.sub(cost)    
+                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                    player.n.points=player.n.points.add(10)
+                    if (player.p.unlocked) {player.n.points=player.n.points.add(player.p.points.mul(1.8).pow(1.06))}
                   },
                 effect (x){
                     return player.n.points
@@ -64,7 +123,7 @@ addLayer("p", {
 		points: new Decimal(0),
     }},
     color: "#11FF22",
-    requires: new Decimal(4), // Can be a function that takes requirement increases into account
+    requires: new Decimal(500), // Can be a function that takes requirement increases into account
     resource: "Prestige Points", // Name of prestige currency
     baseResource: "NPS", // Name of resource prestige is based on
     baseAmount() {return player.n.points}, // Get the current amount of baseResource
@@ -72,11 +131,11 @@ addLayer("p", {
     branches: ["n"],
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
+        mult = new Decimal(1.05)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        let exp = new Decimal(1.5)
+        let exp = new Decimal(2)
         return exp;
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
