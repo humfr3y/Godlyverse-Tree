@@ -1,6 +1,6 @@
 let modInfo = {
 	name: "Godlyverse Tree",
-	id: "godtree",
+	id: "gt",
 	author: "Humfrey",
 	pointsName: "Number",
 	modFiles: ["layers.js", "tree.js"],
@@ -13,12 +13,23 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Null update",
+	num: "0.1",
+	name: "Number update",
 }
 
 let changelog = `<h1>Godlyverse Tree changelog:</h1><br>
-	<h3>v0.0</h3><br>
+	<h3>v0.1</h3><br>
+	0.1 Number Update<br>
+	- NEW 3 REBUYABLE UPGRADES. Each generates NPS (Number pes second)<br>
+	- NEW PRESTIGE UPGRADE. It boosts prestige point gain by 25%<br>
+	- NOW PP BOOSTS NPC GAIN.<br> 
+	- Prestige costs 500 NPC instead of 4.<br>
+	- Fixed some minor text bugs<br>
+	- Added line between layers<br>
+	- You cannot reset NPC.<br>
+	- Changed id to gt<br>
+	0.2 will have new NPC generators and probably new layer.<br>
+	 <br>
 	0.0 Null update<br>
 	- First update of the fork based on mobile incremental game Godlyverse!<br>
 	- Added new layers: <br>
