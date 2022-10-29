@@ -31,7 +31,10 @@ addLayer("n", {
             currencyDisplayName: "Number",
             currencyInternalName: "Number",
             cost(x) { 
-                return new Decimal(10).mul(x+1)},
+                let rex = (new Decimal(10).mul(x).pow(1.2))
+                if (x.lt(1)) {rex=10}
+                return rex
+                    },
             display() { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
@@ -42,7 +45,7 @@ addLayer("n", {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
                     cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(10)    
+                    player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     player.n.points=player.n.points.add(3)
                   },
