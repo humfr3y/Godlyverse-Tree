@@ -64,7 +64,7 @@ addLayer("n", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(10000)
+                    i = new Decimal(3)
                     k = player.p.points
                     if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}

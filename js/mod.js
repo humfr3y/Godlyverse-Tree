@@ -13,12 +13,12 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2",
+	num: "0.2.1",
 	name: "Reincarnation update",
 }
 
 let changelog = `<h1>Godlyverse Tree changelog</h1><br>
-	<h1>v0.2:</h1><br>
+	<h1>v0.2.1:</h1><br>
 	<br>
 	<h2>0.2 Reincarnation Update: </h2><br>
 	- NEW PRESTIGE LAYER. Reset prestige progress and gain Reincarnation Points! They're boosting your PPs boost!<br>
@@ -31,6 +31,7 @@ let changelog = `<h1>Godlyverse Tree changelog</h1><br>
 	- Each prestige point increases NPS production by 10%.<br>
 	- Removed reset button from NPS.<br>
 	- Added text that shows how much boost PPs give (RPs also change this value).<br>
+	- (0.2.1) fixed that insanely small number gives 10000 nps ainstead of 3<br>
 	- 0.3 will save your finger...<br>
 	<br>
 	
