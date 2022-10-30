@@ -64,7 +64,7 @@ addLayer("n", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(3)
+                    i = new Decimal(10000)
                     k = player.p.points
                     if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
@@ -429,13 +429,14 @@ addLayer("p", {
                 "border": "2px solid",
                 "border-radius": "50px",
                 "border-color": "#333333",
-                "color": "#333333",
+                "color": "#11FF22",
                 "font-size": "13px",
             }
-            if (this.canAfford()) {style["color"] = ["#11FF22"], style["border-color"] = ["#11FF22"]}
+            if (this.canAfford()) {style["border-color"] = ["#11FF22"]}
                 return style
             },
-            title: "Prestige Factor X",
+            
+            title() { if (this.canAfford()) { return "Prestige Factor X" } },
             currencyDisplayName: "Prestige Points",
             currencyInternalName: "Prestige Points",
             cost(x) { 
@@ -446,10 +447,16 @@ addLayer("p", {
                 return rexq
                     },
             display() { // Everything else displayed in the buyable button after the title
+               
                 let data = tmp[this.layer].buyables[this.id]
+                if (this.canAfford()) 
+                {
                 return "Cost: " + format(data.cost) + " Prestige Points\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Increase PPs gain by 15%"
+                Increase PPs gain by 15%"}
+                else 
+                {return "I think you should get "+ format(data.cost) + " Prestige Points for it..."}
+                
             },
             canAfford() {
                 return player.p.points.gte(tmp[this.layer].buyables[this.id].cost)},
@@ -503,7 +510,7 @@ addLayer("r", {
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "r", description: "R: Reset for reincarnation points", onPress(){if (canReset(p)) doReset(p)}},
+        {key: "r", description: "R: Reset for reincarnation points", onPress(){if (canReset(r)) doReset(r)}},
     ],
     layerShown(){return true},
     buyables: {
@@ -535,6 +542,7 @@ addLayer("r", {
                 return "Cost: " + format(data.cost) + " Reincarnation Points\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
                 Increase RPs gain by 15%"
+
             },
             canAfford() {
                 return player.r.points.gte(tmp[this.layer].buyables[this.id].cost)},

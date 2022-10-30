@@ -144,7 +144,12 @@ var systemComponents = {
 		<br><br>
         Time Played: {{ formatTime(player.timePlayed) }}<br><br>
         <h3>Hotkeys</h3><br>
-        <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
+        <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span><br><br><br>
+		<h3>Thanks for help with mod in discord: </h3><br><br>
+		jakub#8151<br>
+		Escapee#6378<br>
+		psi(e_W+1)#1225<br>
+		</div> 
     `
     },
 
