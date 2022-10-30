@@ -22,11 +22,11 @@ let changelog = `<h1>Godlyverse Tree changelog:</h1><br>
 	0.1 Number Update<br>
 	- NEW 3 REBUYABLE UPGRADES. Each generates NPS (Number pes second)<br>
 	- NEW PRESTIGE UPGRADE. It boosts prestige point gain by 25%<br>
-	- NOW PP BOOSTS NPC GAIN.<br> 
+	- NOW PP BOOSTS NPS GAIN.<br> 
 	- Prestige costs 500 NPC instead of 4.<br>
 	- Fixed some minor text bugs.<br>
 	- Added line between layers.<br>
-	- You cannot reset NPC.<br>
+	- You cannot reset NPS.<br>
 	- Changed id to gt<br>
 	0.2 will have new NPC generators and probably new layer.<br>
 	 <br>
