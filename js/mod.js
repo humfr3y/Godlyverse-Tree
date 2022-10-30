@@ -19,7 +19,21 @@ let VERSION = {
 
 let changelog = `<h1>Godlyverse Tree changelog:</h1><br>
 	<h3>v0.1</h3><br>
-	0.1 Number Update<br>
+	0.2 Reincarnation Update: <br>
+	- NEW PRESTIGE LAYER. Reset prestige progress and gain Reincarnation Points! They're boosting your PPs boost!<br>
+	- NEW REINCARNATION UPGRADE. Multiply RPs gain by 15%!<br>
+	- NEW 6 NPS GENERATORS. It's even isn't end.<br>
+	- A huge rebalance of all things: price, gain, boost, etc.<br>
+	- Minor text changes<br>
+	- Changed buttons for NPS Generators and factors<br>
+	- Now Prestige Factor X costs 5 PPs instead of 2. And boosts 15% PPs gain instead of 25%.<br>
+	- Each prestige point increases NPS production by 10%.<br>
+	- Removed reset button from NPS.<br>
+	- Added text that shows how much boost PPs give (RPs also change this value).
+	- 0.3 will save your finger...<br>
+	<br>
+	
+	0.1 Number Update: <br>
 	- NEW 3 REBUYABLE UPGRADES. Each generates NPS (Number pes second)<br>
 	- NEW PRESTIGE UPGRADE. It boosts prestige point gain by 25%<br>
 	- NOW PP BOOSTS NPS GAIN.<br> 
@@ -29,8 +43,9 @@ let changelog = `<h1>Godlyverse Tree changelog:</h1><br>
 	- You cannot reset NPS.<br>
 	- Changed id to gt<br>
 	0.2 will have new NPC generators and probably new layer.<br>
+	
 	 <br>
-	0.0 Null update<br>
+	0.0 Null update: <br>
 	- First update of the fork based on mobile incremental game Godlyverse!<br>
 	- Added new layers: <br>
 	- NPS (Numbers per sec), every point increase Number per sec (main currency) by one.<br>
