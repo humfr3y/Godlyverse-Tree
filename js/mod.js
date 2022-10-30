@@ -34,6 +34,7 @@ let changelog = `<h1>Godlyverse Tree changelog</h1><br>
 	- (0.2.1) fixed that insanely small number gives 10000 nps ainstead of 3.<br>
 	- (0.2.2) when you can't buy PFX or RFY there is other text.<br>
 	- (0.2.2) added "thanks for the help with the mod".<br>
+	- (0.2.2) minor visual changes.<br>
 	- 0.3 will save your finger...<br>
 	<br>
 	

@@ -64,7 +64,7 @@ addLayer("n", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(10000)
+                    i = new Decimal(3)
                     k = player.p.points
                     if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
@@ -426,7 +426,7 @@ addLayer("p", {
                 "width": "250px",
                 "height": "250px",
                 "background-color": "#000001",
-                "border": "2px solid",
+                "border": "3px solid",
                 "border-radius": "50px",
                 "border-color": "#333333",
                 "color": "#11FF22",
@@ -520,16 +520,16 @@ addLayer("r", {
                 "width": "250px",
                 "height": "250px",
                 "background-color": "#000001",
-                "border": "2px solid",
+                "border": "3px solid",
                 "border-radius": "50px",
                 "border-color": "#333333",
-                "color": "#333333",
+                "color": "#7DF9FF",
                 "font-size": "13px",
             }
-            if (this.canAfford()) {style["color"] = ["#7DF9FF"], style["border-color"] = ["#7DF9FF"]}
+            if (this.canAfford()) {style["border-color"] = ["#7DF9FF"]}
                 return style
             },
-            title: "Reincarnation Factor Y beta",
+            title() { if (this.canAfford()) { return "Goddess Factor Y" } },
             currencyDisplayName: "Reincarnation Points",
             currencyInternalName: "RP",
             cost(x) { 
@@ -539,9 +539,13 @@ addLayer("r", {
                     },
             display() { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
+                if (this.canAfford()) 
+                {
                 return "Cost: " + format(data.cost) + " Reincarnation Points\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Increase RPs gain by 15%"
+                Increase RPs gain by 15%"}
+                else 
+                {return "It seems to me that your soul is still not filled with determination for it, try to get " + format(data.cost) + " Reincarnation Points, maybe it will work?"}
 
             },
             canAfford() {
