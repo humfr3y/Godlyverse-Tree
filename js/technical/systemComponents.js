@@ -149,6 +149,8 @@ var systemComponents = {
 		jakub#8151<br>
 		Escapee#6378<br>
 		psi(e_W+1)#1225<br>
+		<br>
+		<h3>Thanks Jacorb for softcap button code.</h3>
 		</div> 
     `
     },

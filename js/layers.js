@@ -66,8 +66,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(3)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -104,8 +108,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(5)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -141,8 +149,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(10)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -178,8 +190,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(25)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -215,8 +231,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(50)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -252,8 +272,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(100)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -289,8 +313,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(250)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -326,8 +354,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(500)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -367,8 +399,12 @@ addLayer("n", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                     i = new Decimal(1e3)
                     k = player.p.points
-                    if (player.r.unlocked) {k=k.mul(player.r.points.mul(0.1).add(1))}
+                    rp = player.r.points
+                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
+                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
+                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -435,13 +471,16 @@ addLayer("p", {
             if (this.canAfford()) {style["border-color"] = ["#11FF22"]}
                 return style
             },
-            
-            title() { if (this.canAfford()) { return "Prestige Factor X" } },
+            title() { if (this.canAfford()&&((player[this.layer].buyables[this.id]).gte(30))&&((player[this.layer].buyables[this.id]).lt(50))) { return "Scaled Prestige Factor X" } 
+            else if (this.canAfford()&&((player[this.layer].buyables[this.id]).lt(30))) {return "Prestige Factor X"} 
+            else if (this.canAfford()&&((player[this.layer].buyables[this.id]).gte(50))) {return "Further Prestige Factor X"} },
             currencyDisplayName: "Prestige Points",
             currencyInternalName: "Prestige Points",
             cost(x) { 
                 let z = (new Decimal (5))
-                let rexq = (z.mul(x).pow(1.1))
+                let rexq = (new Decimal(1))
+                rexq = (z.mul(x).pow(x/30))
+                if ((x.gte(30))&&(x.lt(50))) {rexq=rexq.pow(x/30)} else if (x.gte(50)) {rexq=rexq.pow(x/29)}
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=5}
                 return rexq
@@ -453,7 +492,7 @@ addLayer("p", {
                 {
                 return "Cost: " + format(data.cost) + " Prestige Points\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Increase PPs gain by 15%"}
+                Increase PPs gain by 10%"}
                 else 
                 {return "I think you should get "+ format(data.cost) + " Prestige Points for it..."}
                 
@@ -466,7 +505,7 @@ addLayer("p", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                   },
                 effect (x){
-                    return mult = mult.add(mult.mul(x).mul(0.15))
+                    return mult = mult.add(mult.mul(x).mul(0.1))
                 },
         },
     }
@@ -482,14 +521,17 @@ addLayer("r", {
     tabFormat: [
         "main-display",
         ["display-text",
-        function() { return 'Which boosts your PPs by ' + format(player.r.points.mul(10)) + '%!' },
+        function() { if ((player.r.points).lte(1e3)) {return 'Which boosts your PPs by ' + format(player.r.points.mul(10)) + '%!'} 
+                     else return 'Which boosts your PPs by ' + format(player.r.points.mul(5)) + '%!'},
         { "color": "white", "font-size": "15px", }],
         "blank",
         "prestige-button",
         "blank",
         "blank",
         "blank",
-        "buyables"
+        "buyables",
+        "blank",
+        "upgrades"
     ],
     color: "#7DF9FF",
     requires: new Decimal(3e3), // Can be a function that takes requirement increases into account
@@ -505,12 +547,12 @@ addLayer("r", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        let exp = new Decimal(2.21)
+        let exp = new Decimal(1.3)
         return exp;
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "r", description: "R: Reset for reincarnation points", onPress(){if (canReset(r)) doReset(r)}},
+        {key: "r", description: "R: Reset for reincarnation points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
     buyables: {
@@ -529,13 +571,19 @@ addLayer("r", {
             if (this.canAfford()) {style["border-color"] = ["#7DF9FF"]}
                 return style
             },
-            title() { if (this.canAfford()) { return "Goddess Factor Y" } },
+            title() { if (this.canAfford()&&((player[this.layer].buyables[this.id]).gte(30))&&((player[this.layer].buyables[this.id]).lt(50))) { return "Scaled Goddess Factor Y" } 
+            else if (this.canAfford()&&((player[this.layer].buyables[this.id]).lt(30))) {return "Goddess Factor Y"} 
+            else if (this.canAfford()&&((player[this.layer].buyables[this.id]).gte(50))) {return "Further Goddess Factor Y"} },
             currencyDisplayName: "Reincarnation Points",
             currencyInternalName: "RP",
             cost(x) { 
-                let pfx = (new Decimal(2).mul(x.add(1)).pow(0.75))
-                if (x.lt(1)) {pfx=2}
-                return pfx
+                let y = (new Decimal (5))
+                let rexy = (new Decimal(1))
+                rexy = (y.mul(x).pow(x/35).pow(1.033))
+                if ((x.gte(30))&&(x.lt(50))) {rexy=rexy.pow(x/29.5)} else if (x.gte(50)) {rexy=rexy.pow(x/28.5)}
+                rexy = rexy.add(y)
+                if (x.lt(1)) {rexy=5}
+                return rexy
                     },
             display() { // Everything else displayed in the buyable button after the title
                 let data = tmp[this.layer].buyables[this.id]
@@ -543,7 +591,7 @@ addLayer("r", {
                 {
                 return "Cost: " + format(data.cost) + " Reincarnation Points\n\
                 Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Increase RPs gain by 15%"}
+                Increase RPs gain by 10%"}
                 else 
                 {return "It seems to me that your soul is still not filled with determination for it, try to get " + format(data.cost) + " Reincarnation Points, maybe it will work?"}
 
@@ -556,8 +604,39 @@ addLayer("r", {
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
                   },
                 effect (x){
-                    return mult = mult.add(mult.mul(x).mul(0.15))
+                    return mult = mult.add(mult.mul(x).mul(0.1))
                 },
+        },
+
+    },
+    upgrades: {
+        11: {
+            title: "Portion of Gratitude",
+            description: "Double NPS gain",
+            cost: new Decimal(1),
         },
     }
 })
+
+addLayer("sc", {
+	startData() { return {unlocked: true}},
+	color: "#F214A5",
+	symbol: "SC",
+	row: "side",
+	layerShown() {return true},
+	tooltip: "Softcaps",
+	tabFormat: [
+		"blank", "blank", "blank",
+		["raw-html", function() {
+			let html = ""
+			for (let id in SOFTCAPS) {
+				let data = SOFTCAPS[id];
+				if (data.display) if (data.display()) {
+					html += "<div><h3>"+data.title+"</h3><br>"+data.info();
+					html += "</div><br><br>";
+				}
+			}
+			return html;
+		}],
+	],
+}) 

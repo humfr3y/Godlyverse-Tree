@@ -13,12 +13,22 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.2",
-	name: "Reincarnation update",
+	num: "0.3",
+	name: "Soft update",
 }
 
 let changelog = `<h1>Godlyverse Tree changelog</h1><br>
-	<h1>v0.2.1:</h1><br>
+	<h1>v0.3:</h1><br>
+	<h2>0.3 Soft Update: </h2><br>
+	- NEW REINCARNATION UPGRADE. Double your NPS gain with 1 RP!<br>
+	- SOFTCAPS! They're created for no inflation and very high rises.<br>
+	- 2 NEW SOFTCAPS: for NPS gain and RP boost to PP.<br>
+	- 4 NEW SCALINGS! PFX and GFY has scalings after 30 and 50 buyings both.<br>
+	- Changed formula for PFX and GFY.<br>
+	- PFX and GFY boost decreased to 10% both.<br>
+	- Balanced NPS, PP, RP gain.<br>
+	- New button "Softcaps". It'll show when starts scaling or softcap.<br>
+	- In 0.4 NPS Generators will be controlled by r-robots?!<br>
 	<br>
 	<h2>0.2 Reincarnation Update: </h2><br>
 	- NEW PRESTIGE LAYER. Reset prestige progress and gain Reincarnation Points! They're boosting your PPs boost!<br>
