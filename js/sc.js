@@ -5,7 +5,15 @@ const SOFTCAPS = {
 		start: new Decimal("1e3"), // со скольки начинается
 		mag: new Decimal(1.3), //насколько снизили доход (в квадратный корень - 2, в кубический - 3)
 		display() { return ((player.r.points).gte("750")) }, //наверное это когда появляется данный текст
-		info() { return "Starts at "+format(this.start)+" RP, divided by 2" }, //сам текст
+		info() { return "Starts at "+format(this.start)+" RP, 1.3th rooted" }, //сам текст
+	},
+	ppb: { //айдишник, его нужно будет вписать в оператор
+		title: "PP Gain Nerf I", // название
+		type: "power", //тип, не ебу важен ли он
+		start: new Decimal("2e4"), // со скольки начинается
+		mag: new Decimal(0.9), //насколько снизили доход (в квадратный корень - 2, в кубический - 3)
+		display() { return ((player.r.points).gte("1e4")) }, //наверное это когда появляется данный текст
+		info() { return "Starts at "+format(this.start)+" PP, 0.9 powered" }, //сам текст
 	},
 	pfx: { //айдишник, его нужно будет вписать в оператор
 		title: "Scaled Prestige Factor X", // название

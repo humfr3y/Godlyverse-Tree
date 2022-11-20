@@ -47,7 +47,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (10))
-                let rexq = (z.mul(x).pow(1+(x/275)))
+                let rexq = (z.mul(x).pow(1+(x.div(275))))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=10}
                 return rexq
@@ -64,17 +64,25 @@ addLayer("n", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.points = player.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(3)
+                    this.buyMax()
+                    i = new Decimal(10000)
                     k = player.p.points
                     rp = player.r.points
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
-                effect (x){
+                  canBuyMax() {return true},
+                  buyMax() {
+                    if (!this.canAfford) return
+                    let tempBuy = z.root((x.times(275)).sub(1)).max(1).div(x)
+                    let target = tempBuy.plus(1).floor();
+					player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].max(target);
+                  },
+                    effect (x){
                     
                     return player.n.points
                 },
@@ -113,7 +121,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -154,7 +162,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -195,10 +203,10 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
-                effect (x){
+                effect (){
                     return player.n.points
                 },
         },
@@ -236,7 +244,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -277,7 +285,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -318,7 +326,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -359,7 +367,7 @@ addLayer("n", {
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
                      
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -403,7 +411,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (hasUpgrade("r", 11)) {i=i.mul(2)}
+                    if (hasMilestone("r", 0)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
                 effect (x){
@@ -443,6 +451,7 @@ addLayer("p", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (buyableEffect('p', 11)) {return (tmp['p'].buyables[11].effect)}
+        if (player.p.points.lte(2e4)) {return (mult.pow(0.9))}
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -530,7 +539,9 @@ addLayer("r", {
         "blank",
         "buyables",
         "blank",
-        "upgrades"
+    //    "upgrades",
+    //    "blank",
+        "milestones"
     ],
     color: "#7DF9FF",
     requires: new Decimal(3e3), // Can be a function that takes requirement increases into account
@@ -553,7 +564,7 @@ addLayer("r", {
     hotkeys: [
         {key: "r", description: "R: Reset for reincarnation points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){return player.p.unlocked},
     buyables: {
         11: {
             style(){
@@ -608,13 +619,25 @@ addLayer("r", {
         },
 
     },
-    upgrades: {
-        11: {
-            title: "Portion of Gratitude",
-            description: "Double NPS gain",
-            cost: new Decimal(1),
+    //  upgrades: {
+    //    11: {
+    //        title: "Portion of Gratitude",
+    //        description: "Double NPS gain",
+    //        cost: new Decimal(1),
+    //    },
+    //},
+    milestones: {
+        0: {
+            requirementDescription: "1 Reincarnation Point",
+            effectDescription: "Double NPS gain",
+            done() { return player.r.points.gte(1) } //когда давать майлстон
         },
-    }
+        1: {
+            requirementDescription: "3 Reincarnation Points",
+            effectDescription: "Unlock 'Buy all' for NPS",
+            done() { return player.r.points.gte(3) } //когда давать майлстон
+        },
+    },
 })
 
 addLayer("sc", {
