@@ -1,12 +1,4 @@
 const SOFTCAPS = {
-	nps: { //айдишник, его нужно будет вписать в оператор
-		title: "NPS Nerf I", // название
-		type: "root", //тип, не ебу важен ли он
-		start: new Decimal("5e7"), // со скольки начинается
-		mag: new Decimal(1.3), //насколько снизили доход (в квадратный корень - 2, в кубический - 3)
-		display() { return player.n.points.gte("1e7") }, //наверное это когда появляется данный текст
-		info() { return "Starts at "+format(this.start)+" NPS, 1.3th rooted" }, //сам текст
-	},
 	rpb: { //айдишник, его нужно будет вписать в оператор
 		title: "RP Boost Nerf I", // название
 		type: "root", //тип, не ебу важен ли он

@@ -47,7 +47,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (10))
-                let rexq = (z.mul(x).pow(1.05))
+                let rexq = (z.mul(x).pow(1+(x/275)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=10}
                 return rexq
@@ -70,7 +70,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -89,7 +89,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (25))
-                let rexq = (z.mul(x).pow(1.0475))
+                let rexq = (z.mul(x).pow(1+(x/265)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=25}
                 return rexq
@@ -112,7 +112,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -130,7 +130,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (60))
-                let rexq = (z.mul(x).pow(1.047))
+                let rexq = (z.mul(x).pow(1+(x/250)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=60}
                 return rexq
@@ -153,7 +153,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -171,7 +171,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (175))
-                let rexq = (z.mul(x).pow(1.0465))
+                let rexq = (z.mul(x).pow(1+(x/245)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=175}
                 return rexq
@@ -194,7 +194,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -212,7 +212,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (400))
-                let rexq = (z.mul(x).pow(1.0455))
+                let rexq = (z.mul(x).pow(1+(x/235)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=400}
                 return rexq
@@ -235,7 +235,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -253,7 +253,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (1000))
-                let rexq = (z.mul(x).pow(1.045))
+                let rexq = (z.mul(x).pow(1+(x/225)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=1000}
                 return rexq
@@ -276,7 +276,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -294,7 +294,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (2750))
-                let rexq = (z.mul(x).pow(1.043))
+                let rexq = (z.mul(x).pow(1+(x/220)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=2750}
                 return rexq
@@ -317,7 +317,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -335,7 +335,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (6000))
-                let rexq = (z.mul(x).pow(1.0425))
+                let rexq = (z.mul(x).pow(1+(x/215)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=6000}
                 return rexq
@@ -358,7 +358,7 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
+                     
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
@@ -380,7 +380,7 @@ addLayer("n", {
               },
             cost(x) { 
                 let z = (new Decimal (10000))
-                let rexq = (z.mul(x).pow(1.04))
+                let rexq = (z.mul(x).pow(1+(x/210)))
                 rexq = rexq.add(z)
                 if (x.lt(1)) {rexq=10000}
                 return rexq
@@ -403,7 +403,6 @@ addLayer("n", {
                     if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
                     if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
                     if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (player.n.points.gte(5e7)) i = i.pow(1/1.3);
                     if (hasUpgrade("r", 11)) {i=i.mul(2)}
                     player.n.points=player.n.points.add(i)
                   },
