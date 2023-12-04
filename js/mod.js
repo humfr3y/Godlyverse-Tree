@@ -13,12 +13,20 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3",
-	name: "Soft update",
+	num: "0.4",
+	name: "Comeback update",
 }
 
 let changelog = `<h1>Godlyverse Tree changelog</h1><br>
-	<h1>v0.3:</h1><br>
+<br>
+	<h2>v0.4 Comeback Update:</h2><br>
+	- NEW 6 NPS GENERATORS! They will be last one's.<br>
+	- Rebalanced NPS Generators price scaling.<br>
+	- Rebalanced PPs and RPs gain. Added/changed softcaps.<br>
+	- Removed NPS softcaps.<br>
+	- Added two Reincarnation Milestones.<br>
+	- Changed a way to multiply NPS gain.<br>
+	<br>
 	<h2>0.3 Soft Update: </h2><br>
 	- NEW REINCARNATION UPGRADE. Double your NPS gain with 1 RP!<br>
 	- SOFTCAPS! They're created for no inflation and very high rises.<br>
@@ -89,7 +97,23 @@ function getPointGen() {
 		return new Decimal(0);
 
 	let gain = new Decimal(0)
-	gain = player.n.points.plus(0);
+	let p = player.p.points
+	let rp = player.r.points
+
+	if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+	if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+
+	if (hasMilestone("r", 0)) {gain = playerNPoints.mul((p).mul(0.1).add(1)).mul(2)} 
+	else if (player.p.unlocked) gain = playerNPoints.mul((p).mul(0.1).add(1))
+	else gain = playerNPoints
+
+	if (player.p.unlocked) {
+		if (hasMilestone("r", 0)) {player.n.points = playerNPoints.mul((p).mul(0.1).add(1)).mul(2)} 
+		else {player.n.points=playerNPoints.mul((p).mul(0.1).add(1))}
+	}
+
+	else player.n.points=playerNPoints
+
 	return gain
 }
 

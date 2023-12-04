@@ -218,6 +218,7 @@ function doReset(layer, force=false) {
 	}
 
 	player.points = (row == 0 ? decimalZero : getStartPoints())
+	playerNPoints = decimalZero;
 
 	for (let x = row; x >= 0; x--) rowReset(x, layer)
 	for (r in OTHER_LAYERS){
@@ -389,6 +390,7 @@ function hardReset(resetOptions) {
 	if (!confirm("Are you sure you want to do this? You will lose all your progress!")) return
 	player = null
 	if(resetOptions) options = null
+	playerNPoints = decimalZero
 	save(true);
 	window.location.reload();
 }

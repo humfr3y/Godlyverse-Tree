@@ -4,6 +4,7 @@ function save(force) {
 	if (NaNalert && !force) return
 	localStorage.setItem(modInfo.id, btoa(unescape(encodeURIComponent(JSON.stringify(player)))));
 	localStorage.setItem(modInfo.id+"_options", btoa(unescape(encodeURIComponent(JSON.stringify(options)))));
+	localStorage.setItem("otherstuff", btoa(unescape(encodeURIComponent(JSON.stringify(playerNPoints)))))
 
 }
 function startPlayerBase() {
@@ -186,7 +187,9 @@ function fixData(defaultData, newData) {
 }
 function load() {
 	let get = localStorage.getItem(modInfo.id);
+	let get3 = localStorage.getItem("otherstuff")
 
+	playerNPoints = playerNPoints.plus(JSON.parse(decodeURIComponent((atob(get3)))));
 	if (get === null || get === undefined) {
 		player = getStartPlayer();
 		options = getStartOptions();
@@ -224,7 +227,6 @@ function loadOptions() {
 		options = getStartOptions()
 	if (themes.indexOf(options.theme) < 0) theme = "default"
 	fixData(options, getStartOptions())
-
 }
 
 function setupModInfo() {

@@ -1,3 +1,5 @@
+let playerNPoints = new Decimal (0)
+
 addLayer("n", {
     name: "NPS Shop", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "NPS", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -46,46 +48,48 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (10))
-                let rexq = (z.mul(x).pow(1+(x.div(275))))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=10}
-                return rexq
+                let cost1 = new Decimal (10)
+                cost = cost1.mul(Math.pow(1.2, x))
+                if (x.lt(1)) {cost=10}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(3)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 3 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
-                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    this.buyMax()
-                    i = new Decimal(10000)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
-                  },
-                  canBuyMax() {return true},
-                  buyMax() {
-                    if (!this.canAfford) return
-                    let tempBuy = z.root((x.times(275)).sub(1)).max(1).div(x)
-                    let target = tempBuy.plus(1).floor();
-					player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].max(target);
-                  },
-                    effect (x){
-                    
-                    return player.n.points
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)
                 },
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                    {
+                        this.cost()
+                        player.points = player.points.sub(cost)   
+                        player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                        i = new Decimal(3)
+                        playerNPoints=playerNPoints.add(i)
+                    }}
+                    else {
+                        this.cost()
+                        player.points = player.points.sub(cost)   
+                        player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                        i = new Decimal(3)
+                        playerNPoints=playerNPoints.add(i)
+                    }
+                },
+                    effect (){
+                    return player.n.points
+                }
         },
         12: {
             title: "Small number",
@@ -96,33 +100,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (25))
-                let rexq = (z.mul(x).pow(1+(x/265)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=25}
-                return rexq
+                let cost1 = new Decimal (25)
+                cost = (cost1.mul(Math.pow(1.25, x)))
+                if (x.lt(1)) {cost=25}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(5)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 5 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(5)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(5)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(5)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -137,33 +151,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (60))
-                let rexq = (z.mul(x).pow(1+(x/250)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=60}
-                return rexq
+                let cost1 = new Decimal (100)
+                cost = cost1.mul(Math.pow(1.315, x))
+                if (x.lt(1)) {cost=100}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(10)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 10 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(10)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(10)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(10)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -178,33 +202,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (175))
-                let rexq = (z.mul(x).pow(1+(x/245)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=175}
-                return rexq
+                let cost1 = new Decimal (550)
+                cost = (cost1.mul(Math.pow(1.45, x)))
+                if (x.lt(1)) {cost=550}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(25)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 25 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(25)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(25)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(25)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (){
                     return player.n.points
@@ -219,33 +253,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (400))
-                let rexq = (z.mul(x).pow(1+(x/235)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=400}
-                return rexq
+                let cost1 = new Decimal (2500)
+                cost = (cost1.mul(Math.pow(1.575, x)))
+                if (x.lt(1)) {cost=2500}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(50)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 50 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(50)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(50)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(50)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -260,33 +304,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (1000))
-                let rexq = (z.mul(x).pow(1+(x/225)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=1000}
-                return rexq
+                let cost1 = new Decimal (15000)
+                cost = (cost1.mul(Math.pow(1.7, x)))
+                if (x.lt(1)) {cost=15000}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(100)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 100 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(100)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(100)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(100)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -301,33 +355,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (2750))
-                let rexq = (z.mul(x).pow(1+(x/220)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=2750}
-                return rexq
+                let cost1 = new Decimal (200000)
+                cost = (cost1.mul(Math.pow(1.775, x)))
+                if (x.lt(1)) {cost=200000}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(250)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 250 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(250)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(250)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(250)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -342,33 +406,43 @@ addLayer("n", {
                 return style
               },
             cost(x) { 
-                let z = (new Decimal (6000))
-                let rexq = (z.mul(x).pow(1+(x/215)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=6000}
-                return rexq
+                let cost1 = new Decimal (1.2e6)
+                cost = (cost1.mul(Math.pow(1.775, x)))
+                if (x.lt(1)) {cost=1.2e6}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(500)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 500 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(500)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                     
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(500)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(500)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -382,37 +456,381 @@ addLayer("n", {
                 const style = {
                 "width": "180px",
                 "height": "100px",
-                                                                                 //"background-color": "#00FF00"
+                //"background-color": "#00FF00"
             }
                 return style
-              },
+            },
             cost(x) { 
-                let z = (new Decimal (10000))
-                let rexq = (z.mul(x).pow(1+(x/210)))
-                rexq = rexq.add(z)
-                if (x.lt(1)) {rexq=10000}
-                return rexq
+                let cost1 = new Decimal (5e7)
+                cost = (cost1.mul(Math.pow(1.6, x)))
+                if (x.lt(1)) {cost=5e7}
+                return cost
                     },
             display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(1e3)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
                 let data = tmp[this.layer].buyables[this.id]
                 return "Cost: " + format(data.cost) + " Number\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
-                Adds + 1e3 NPS"
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
             },
             canAfford() {
                 return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() {
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.points = player.points.sub(cost)    
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    i = new Decimal(1e3)
-                    k = player.p.points
-                    rp = player.r.points
-                    if (player.r.points.gt(1e3)) {k=k.mul(rp.mul(0.05).add(1))}
-                    if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {k=k.mul(rp.mul(0.1).add(1))}
-                    if (player.p.unlocked) {i=i.mul(k.mul(0.1).add(1))}
-                    if (hasMilestone("r", 0)) {i=i.mul(2)}
-                    player.n.points=player.n.points.add(i)
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(1000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(1000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        41: {
+            title: "Big rainbow number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (8e8)
+                cost = (cost1.mul(Math.pow(1.515, x)))
+                if (x.lt(1)) {cost=8e8}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(25000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(25000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(25000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        42: {
+            title: "Huge rainbow number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (1.66e10)
+                cost = (cost1.mul(Math.pow(1.45, x)))
+                if (x.lt(1)) {cost=1.66e10}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(50000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(50000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(50000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        43: {
+            title: "Color-charging number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (1e14)
+                cost = (cost1.mul(Math.pow(1.3, x)))
+                if (x.lt(1)) {cost=1e14}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(125000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(125000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(125000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        51: {
+            title: "White number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+            if (this.canAfford()) {style["background-color"] = ["#FFFFFF"]}
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (1e18)
+                cost = (cost1.mul(Math.pow(1.25, x)))
+                if (x.lt(1)) {cost=1e18}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(250000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(250000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(250000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        52: {
+            title: "Black number",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+            if (this.canAfford()) {style["background-color"] = ["#000000"]; style["color"] = ["#FFFFFF"]}
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (1e25)
+                cost = (cost1.mul(Math.pow(1.215, x)))
+                if (x.lt(1)) {cost=1e25}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(1000000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(1000000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(1000000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
+                  },
+                effect (x){
+                    return player.n.points
+                },
+        },
+        53: {
+            title: "Infinity",
+            currencyDisplayName: "Number",
+            currencyInternalName: "Number",
+            style() {
+                const style = {
+                "width": "180px",
+                "height": "100px",
+                //"background-color": "#00FF00"
+            }
+            if (this.canAfford()) {style["background-color"] = ["#66666666"]}
+                return style
+            },
+            cost(x) { 
+                let cost1 = new Decimal (1e40)
+                cost = (cost1.mul(Math.pow(1.2, x)))
+                if (x.lt(1)) {cost=1e40}
+                return cost
+                    },
+            display() { // Everything else displayed in the buyable button after the title
+                i = new Decimal(3500000)
+                p = player.p.points
+                rp = player.r.points
+                if (player.r.points.gt(1e3)) {p=p.mul(rp.mul(0.05).add(1))}
+                if ((player.r.unlocked)&&(player.r.points.lte(1e3))) {p=p.mul(rp.mul(0.1).add(1))}
+                if (player.p.unlocked) {i=i.mul(p.mul(0.1).add(1))}
+                if (hasMilestone("r", 0)) {i=i.mul(2)}
+                i = Math.floor(i)
+                let data = tmp[this.layer].buyables[this.id]
+                return "Cost: " + format(data.cost) + " Number\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
+                Adds +"+ format(i) + " NPS"
+            },
+            canAfford() {
+                return player.points.gte(tmp[this.layer].buyables[this.id].cost)},
+                buy() {
+                    if (hasMilestone("r", 1)) {while (player.points.gte(tmp[this.layer].buyables[this.id].cost))
+                        {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(3500000)
+                            playerNPoints=playerNPoints.add(i)
+                        }}
+                        else {
+                            this.cost()
+                            player.points = player.points.sub(cost)   
+                            player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
+                            i = new Decimal(3500000)
+                            playerNPoints=playerNPoints.add(i)
+                        }
                   },
                 effect (x){
                     return player.n.points
@@ -447,15 +865,16 @@ addLayer("p", {
     baseAmount() {return player.n.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     branches: ["n"],
-    exponent: 0.5, // Prestige currency exponent
+    exponent: 1.15, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (buyableEffect('p', 11)) {return (tmp['p'].buyables[11].effect)}
-        if (player.p.points.lte(2e4)) {return (mult.pow(0.9))}
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        let exp = new Decimal(1.2)
+        let exp = new Decimal(1)
+        let expSoft = new Decimal(0.7)
+        if ((player.p.points).gte("1000") || player.p.buyables[11].gte("25")) exp = expSoft
         return exp;
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
@@ -494,12 +913,12 @@ addLayer("p", {
                 return rexq
                     },
             display() { // Everything else displayed in the buyable button after the title
-               
+            
                 let data = tmp[this.layer].buyables[this.id]
                 if (this.canAfford()) 
                 {
                 return "Cost: " + format(data.cost) + " Prestige Points\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
                 Increase PPs gain by 10%"}
                 else 
                 {return "I think you should get "+ format(data.cost) + " Prestige Points for it..."}
@@ -511,7 +930,7 @@ addLayer("p", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.p.points = player.p.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                  },
+                },
                 effect (x){
                     return mult = mult.add(mult.mul(x).mul(0.1))
                 },
@@ -557,7 +976,9 @@ addLayer("r", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        let exp = new Decimal(1.3)
+        let exp = new Decimal(1)
+        let expSoft = new Decimal(0.5)
+        if ((player.r.points).gte("10")) exp = expSoft
         return exp;
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
@@ -600,7 +1021,7 @@ addLayer("r", {
                 if (this.canAfford()) 
                 {
                 return "Cost: " + format(data.cost) + " Reincarnation Points\n\
-                Amount: " + player[this.layer].buyables[this.id] + "\n\
+                Level: " + player[this.layer].buyables[this.id] + "\n\
                 Increase RPs gain by 10%"}
                 else 
                 {return "It seems to me that your soul is still not filled with determination for it, try to get " + format(data.cost) + " Reincarnation Points, maybe it will work?"}
@@ -612,7 +1033,7 @@ addLayer("r", {
                     cost = tmp[this.layer].buyables[this.id].cost
                     player.r.points = player.r.points.sub(cost)    
                     player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                  },
+                },
                 effect (x){
                     return mult = mult.add(mult.mul(x).mul(0.1))
                 },
@@ -634,7 +1055,7 @@ addLayer("r", {
         },
         1: {
             requirementDescription: "3 Reincarnation Points",
-            effectDescription: "Unlock 'Buy all' for NPS",
+            effectDescription: "Unlock 'Bulk buy' for NPS Generators",
             done() { return player.r.points.gte(3) } //когда давать майлстон
         },
     },
